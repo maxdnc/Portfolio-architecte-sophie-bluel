@@ -3,186 +3,792 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
-	margin:auto;
-	font-family: 'Work Sans' ;
-	font-size: 14px;
+  max-width: 1140px;
+  margin: auto;
+  font-family: "Work Sans";
+  font-size: 14px;
+  background-color: #fffef8;
 }
 header {
-	display: flex;
-	justify-content: space-between;
-	margin: 50px 0
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0;
 }
 section {
-	margin: 50px 0
+  margin: 50px 0;
 }
 
-h1{
-	display: flex;
-	flex-direction: column;
-	font-family: 'Syne';
-	font-size: 22px;
-	font-weight: 800;
-	color: #B1663C
+h1 {
+  display: flex;
+  flex-direction: column;
+  font-family: "Syne";
+  font-size: 22px;
+  font-weight: 800;
+  color: #b1663c;
 }
 
 h1 > span {
-	font-family: 'Work Sans';
-	font-size:10px;
-	letter-spacing: 0.1em;
-;
+  font-family: "Work Sans";
+  font-size: 10px;
+  letter-spacing: 0.1em;
 }
 
-h2{
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154
+h2 {
+  font-family: "Syne";
+  font-weight: 700;
+  font-size: 30px;
+  color: #1d6154;
 }
 nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-
+  display: flex;
+  align-items: center;
+  list-style-type: none;
 }
 nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
+  padding: 0 10px;
 }
 
-li:hover {
-	color: #B1663C;
+.nav-link {
+  color: black;
+  font-size: 1.2em;
+  text-decoration: none;
 }
+.nav-link:hover {
+  color: #b1663c;
+}
+
 #introduction {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #introduction figure {
-	flex: 1
+  flex: 1;
 }
 #introduction img {
-	display: block;
-	margin: auto;
-	width: 80%;
+  width: 80%;
 }
 
 #introduction article {
-	flex: 1
+  flex: 1;
+  height: 100%;
+}
+#introduction button {
+  margin: 1em 0 3em 0;
 }
 #introduction h2 {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 #introduction p {
-	margin-bottom: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+#portfolio {
+  margin-top: 8.75rem;
 }
 #portfolio h2 {
-	text-align: center;
-	margin-bottom: 1em;
+  text-align: center;
 }
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
 }
 
 .gallery img {
-	width: 100%;
-
+  width: 100%;
 }
 #contact {
-	width: 50%;
-margin: auto;
+  width: 50%;
+  margin: auto;
 }
 #contact > * {
-	text-align: center;
-
+  text-align: center;
 }
-#contact h2{
-	margin-bottom: 20px;
+#contact h2 {
+  margin-bottom: 20px;
 }
 #contact form {
-	text-align: left;
-	margin-top:30px;
-	display: flex;
-	flex-direction: column;
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
 }
 
 #contact input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 #contact label {
-	margin: 2em 0 1em 0;
+  margin: 2em 0 1em 0;
 }
 #contact textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
-	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
-	text-align: center;
-	border-radius: 60px ;
+input[type="submit"] {
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  background-color: #1d6154;
+  margin: 2em auto;
+  width: 180px;
+  text-align: center;
+  border-radius: 60px;
+  cursor: pointer;
 }
-
+input[type="submit"]:hover {
+  background-color: black;
+}
 footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em
+  display: flex;
+  justify-content: flex-end;
+  margin: 2em;
 }
 
+/* login page */
+
+#login {
+  width: 50%;
+  margin: auto;
+}
+
+#login > * {
+  text-align: center;
+}
+
+#login input {
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#login label {
+  margin: 2em 0 1em 0;
+}
+
+#login form {
+  text-align: left;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mdp-forget {
+  text-align: center;
+  color: black;
+}
+
+.error-message {
+  color: #d65353;
+  font-size: 1rem;
+  margin-top: 1em;
+  text-align: center;
+}
+.shake {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% {
+    background-color: #d65353;
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(10px);
+  }
+  60% {
+    transform: translateX(-10px);
+  }
+  80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+/* filter button */
+
+.filter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 3.75rem;
+}
+
+.button-filter {
+  background-color: #fffef8;
+  color: #1d6154;
+  border: 1px solid #1d6154;
+  border-radius: 2em;
+  padding: 0.5em 1.5em;
+  font-size: 1rem;
+
+  font-family: "Syne";
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.button-filter.active {
+  color: #fffef8;
+  background-color: #1d6154;
+}
+
+.wrapper-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3em;
+  gap: 1.9375rem;
+}
+
+.button-admin {
+  display: none;
+  background: none;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 0.875rem;
+  gap: 0.5em;
+  font-family: "Work Sans";
+  font-style: normal;
+  cursor: pointer;
+  padding: 0;
+}
+
+.icon-pencil {
+  height: 22px;
+  width: 22px;
+}
+
+.button-admin:hover {
+  color: #b1663c;
+}
+
+.button-admin:hover img {
+  filter: invert(40%) sepia(62%) saturate(466%) hue-rotate(338deg)
+    brightness(98%) contrast(92%);
+}
+
+.wrapper-profil {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.edit-mode {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: black;
+  padding-block: 1em;
+}
+
+.edit-mode p {
+  font-family: "Work Sans";
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.edit-mode svg {
+  color: white;
+}
+
+.button-publish {
+  background-color: white;
+  color: black;
+  border: 2px solid white;
+  padding: 0.4em 1em;
+  border-radius: 1em;
+
+  font-family: "Work Sans";
+
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.button-publish:hover {
+  background-color: black;
+  color: white;
+}
+
+/* modal */
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translatex(-50%);
+  width: 100vw;
+  height: 100vh;
+
+  visibility: hidden;
+  transition: visibility 0.3s ease-out;
+}
+
+.modal-container.active {
+  visibility: visible;
+}
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333333b3;
+  opacity: 0;
+  transition: opacity 0.3s 0.1s ease-out;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}
+
+.modal-container.active .overlay {
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4375rem;
+  width: 80%;
+  max-height: 731px;
+  max-width: 635px;
+  padding: 3.125rem 0;
+  min-width: 310px;
+  background-color: white;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 50px));
+  opacity: 0;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  overflow: hidden;
+}
+
+.modal-container.active .modal {
+  opacity: 1;
+  transition: opacity 0.3s 0.1s ease-out, transform 0.3s ease-out;
+  transform: translate(-50%, -50%);
+}
+
+.close-modal {
+  padding: 0.625rem;
+  border: none;
+  background: none;
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.close-modal:hover {
+  color: #d65353;
+}
+
+.modal h3 {
+  font-size: 1.625rem;
+  text-align: center;
+  padding-block: 1rem;
+}
+
+.bar-modal {
+  height: 1px;
+  width: 68%;
+  background: #b3b3b3;
+  margin-block: 2.25rem;
+}
+
+.add-photo-modal {
+  display: inline-block;
+  width: fit-content;
+  background-color: #1d6154;
+  color: white;
+  border: 1px solid #1d6154;
+  border-radius: 2em;
+  padding: 0.5em 1.5em;
+  font-size: 1rem;
+  font-family: "Syne";
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.add-photo-modal:hover {
+  background-color: black;
+}
+
+.delete-all-photo-modal {
+  background: none;
+  font-family: "Syne";
+  font-size: 0.875rem;
+  border: none;
+  color: #d65353;
+  display: inline-block;
+  width: fit-content;
+  cursor: pointer;
+}
+
+/* gallery modal */
+.gallery-modal {
+  position: relative;
+  padding: 0 6.5625rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: auto;
+}
+
+.modal-item__img {
+  max-width: 78.12px;
+  max-height: 104.08px;
+  object-fit: contain;
+}
+
+.box-modal {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.modal-edit-btn {
+  background: none;
+  border: none;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  width: fit-content;
+  padding: 0.25em 0;
+  cursor: pointer;
+}
+
+.modal-edit-btn:hover {
+  color: #b1663c;
+}
+.modal-delete-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+  border-radius: 0.2em;
+  border: none;
+  color: white;
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+  position: absolute;
+  top: 6%;
+  right: 5%;
+}
+.modal-delete-btn:hover {
+  background: #333333;
+}
+
+.modal-delete-btn img {
+  height: 9px;
+  width: 9px;
+  align-self: center;
+}
+
+/* form add image  */
+
+.form-add-img {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 80%;
+  max-width: 420px;
+}
+
+.title-form-add-photo {
+  width: 100%;
+  padding-block: 1rem;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.second-bar-modal {
+  height: 1px;
+  width: 100%;
+  background: #b3b3b3;
+  margin-block: 2.25rem;
+}
+.back-to-gallery {
+  display: none;
+  width: fit-content;
+  background: none;
+  cursor: pointer;
+  position: absolute;
+  top: 3.5%;
+  left: 3%;
+  border: none;
+}
+
+.back-to-gallery:hover {
+  color: #b1663c;
+}
+.confirm-button-form-add {
+  align-self: center;
+  font-family: "Syne";
+  font-size: 0.875rem;
+  border: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 0.5em 6em;
+  background-color: #a7a7a7;
+  color: white;
+  border-radius: 2em;
+  font-family: "Syne";
+
+  cursor: pointer;
+}
+.confirm-button-form-add.active {
+  background-color: #1d6154;
+}
+
+.title-form-add-photo:after {
+  content: "";
+  display: inline-block;
+  margin-left: 0.5rem;
+  width: 0;
+  height: 0;
+  border-top: 0.3rem solid transparent;
+  border-bottom: 0.3rem solid transparent;
+  border-left: 0.3rem solid #333333;
+  vertical-align: middle;
+  transition: transform 0.2s ease-out;
+}
+
+.dropdown:hover .dropbtn:after {
+  transform: rotate(90deg);
+}
+
+.preview-img {
+  width: auto;
+  height: 169px;
+  position: absolute;
+  object-fit: contain;
+}
+
+/* drop zone style */
+.drop-zone {
+  width: 100%;
+  height: 169px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #e8f1f7;
+  gap: 0.25em;
+  position: relative;
+}
+
+.button-upload-photo {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 0.6em 2em;
+  color: #306685;
+  background-color: #cbd6dc;
+  border: none;
+  border-radius: 2em;
+  cursor: pointer;
+
+  font-family: "Work Sans";
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+.button-upload-photo:hover {
+  background-color: #306685;
+  color: white;
+}
+.drop-zone svg {
+  width: 65px;
+  height: auto;
+  color: #b9c5cc;
+  margin-bottom: 0.75rem;
+}
+
+.drop-zone p {
+  font-family: "Work Sans";
+  font-size: 0.625rem;
+  color: #444444;
+}
+
+.preview-delete-btn {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: #306685;
+  border-radius: 0.3em;
+  border: none;
+  color: white;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 6%;
+  right: 5%;
+}
+
+.preview-delete-btn img {
+  height: 15px;
+  width: 15px;
+  align-self: center;
+}
+.preview-delete-btn:hover {
+  background: #d65353;
+}
+
+@media screen and (max-width: 768px) {
+  .gallery-modal {
+    padding: 0 1.5rem;
+    justify-content: center;
+    max-height: 300px;
+  }
+}
