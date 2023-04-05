@@ -32,7 +32,6 @@ getCategoriesApi().then((categories) => {
     const button = document.createElement("button");
     button.innerText = category.name;
     button.classList.add("button-filter");
-
     button.addEventListener("click", async () => {
       const getData = await getApi();
       const filteredData = getData.filter(
