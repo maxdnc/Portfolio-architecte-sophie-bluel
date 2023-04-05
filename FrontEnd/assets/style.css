@@ -785,6 +785,24 @@ footer nav ul {
   background: #d65353;
 }
 
+/* erreur titre */
+.error-title-form {
+  visibility: hidden;
+}
+
+.error-title-form.active {
+  visibility: visible;
+  color: #d65353;
+  font-size: 1rem;
+  font-family: "Work Sans";
+  font-weight: 700;
+  text-align: center;
+}
+
+.bordertitle-error.active {
+  border: 1px solid #d65353;
+}
+
 @media screen and (max-width: 768px) {
   .gallery-modal {
     padding: 0 1.5rem;

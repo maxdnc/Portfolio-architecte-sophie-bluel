@@ -97,18 +97,21 @@
           </div>
 
           <label for="titre">Titre</label>
+
           <input
             type="text"
             name="title"
             id="titre"
-            class="title-form-add-photo"
+            class="title-form-add-photo bordertitle-error"
           />
 
           <label for="categorie">Catégorie</label>
           <select name="category" id="categorie" class="title-form-add-photo">
             <option value="" disabled selected></option>
           </select>
+          <p class="error-title-form">Erreur: Titre obligatoire !</p>
           <div class="second-bar-modal"></div>
+
           <button type="submit" class="confirm-button-form-add">Valider</button>
         </form>
 

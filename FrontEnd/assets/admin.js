@@ -1,4 +1,73 @@
 const token = localStorage.getItem("token");
+
+const galleryModal = document.querySelector("#js-gallery-modal");
+
+const getGalleryModalItems = (data) => {
+  for (let i = 0; i < data.length; i++) {
+    const boxModal = document.createElement("div");
+    boxModal.classList.add("box-modal");
+    boxModal.setAttribute("data-id", data[i].id);
+    galleryModal.appendChild(boxModal);
+
+    const modalItemImg = document.createElement("img");
+    modalItemImg.classList.add("modal-item__img");
+    modalItemImg.src = data[i].imageUrl;
+    modalItemImg.alt = data[i].title;
+    boxModal.appendChild(modalItemImg);
+
+    const modalEditBtn = document.createElement("button");
+    modalEditBtn.classList.add("modal-edit-btn");
+    modalEditBtn.innerText = "éditer";
+    boxModal.appendChild(modalEditBtn);
+
+    const modalDeleteBtn = document.createElement("button");
+    modalDeleteBtn.classList.add("modal-delete-btn");
+    modalDeleteBtn.setAttribute("aria-label", "delete");
+    boxModal.appendChild(modalDeleteBtn);
+
+    const modalDeleteImg = document.createElement("img");
+    modalDeleteImg.src = "./assets/icons/trash.svg";
+    modalDeleteImg.alt = "delete";
+    modalDeleteBtn.appendChild(modalDeleteImg);
+
+    modalDeleteBtn.addEventListener("click", () => {
+      const id = boxModal.getAttribute("data-id");
+      console.log(id);
+      getDeleteItemApi(id).then(() => {
+        getApi().then((data) => {
+          renderGallery(data);
+          galleryModal.innerHTML = "";
+          getGalleryModalItems(data);
+        });
+      });
+    });
+  }
+};
+
+const addPicture = document.querySelector("#js-add-picture");
+const modalTitle = document.querySelector("#js-modal-title");
+
+const deleteGallery = document.querySelector("#js-delete-gallery");
+const formAddPicture = document.querySelector("#js-form-add-img");
+const backGallery = document.querySelector("#js-back-to-gallery");
+const barModal = document.querySelector("#js-bar-modal");
+
+const modalElement = (data) => {
+  modalTitle.textContent = "Gallerie photo";
+
+  galleryModal.style.display = "flex";
+  deleteGallery.style.display = "block";
+  addPicture.style.display = "block";
+  formAddPicture.style.display = "none";
+  backGallery.style.display = "none";
+  barModal.style.display = "block";
+
+  getApi().then((data) => {
+    galleryModal.innerHTML = "";
+    getGalleryModalItems(data);
+  });
+};
+
 const isLogged = () => (token ? true : false);
 
 const logOut = () => {
@@ -60,47 +129,10 @@ modalTriggers.forEach((trigger) =>
 );
 
 getApi().then((data) => {
-  const galleryModal = document.querySelector("#js-gallery-modal");
-
-  const getGalleryModalItems = (data) => {
-    return data
-      .map((item) => {
-        return `
-          <div class="box-modal" data-id="${item.id}">
-            <img src="${item.imageUrl}" alt="${item.title}" class="modal-item__img">
-            <button class="modal-edit-btn">éditer</button>
-            <button class="modal-delete-btn" aria-label="delete">
-            <img src="./assets/icons/trash.svg" alt="delete" >
-          </button>
-          </div>
-        `;
-      })
-      .join("");
-  };
-
-  galleryModal.innerHTML = getGalleryModalItems(data);
+  getGalleryModalItems(data);
 });
 
 getApi().then(() => {
-  const modalDeleteButtons = document.querySelectorAll(".modal-delete-btn");
-  modalDeleteButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const id = button.parentElement.getAttribute("data-id");
-      console.log(id);
-      getDeleteItemApi(id);
-    });
-  });
-});
-
-getApi().then(() => {
-  const addPicture = document.querySelector("#js-add-picture");
-  const modalTitle = document.querySelector("#js-modal-title");
-  const galleryModal = document.querySelector("#js-gallery-modal");
-  const deleteGallery = document.querySelector("#js-delete-gallery");
-  const formAddPicture = document.querySelector("#js-form-add-img");
-  const backGallery = document.querySelector("#js-back-to-gallery");
-  const barModal = document.querySelector("#js-bar-modal");
-
   addPicture.addEventListener("click", () => {
     modalTitle.textContent = "Ajout Photo";
     galleryModal.style.display = "none";
@@ -112,21 +144,20 @@ getApi().then(() => {
   });
 
   backGallery.addEventListener("click", () => {
-    modalTitle.textContent = "Gallerie photo";
-    galleryModal.style.display = "flex";
-    deleteGallery.style.display = "block";
-    addPicture.style.display = "block";
-    formAddPicture.style.display = "none";
-    backGallery.style.display = "none";
-    barModal.style.display = "block";
+    modalElement();
+
+    getApi().then((data) => {
+      galleryModal.innerHTML = "";
+      getGalleryModalItems(data);
+    });
   });
 }); //button
 
+// delete element
 const getDeleteItemApi = async (id) => {
   try {
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: "DELETE",
-
       headers: { Authorization: `accept: ${token}` },
     });
     return true;
@@ -149,7 +180,45 @@ const getPostItemApi = async (formData) => {
       body: formData,
     });
     const data = await response.json();
-    console.log(data);
+
+    if (response.status === 201) {
+      setTimeout(() => {
+        getApi().then((data) => {
+          const modalElement = (data) => {
+            modalTitle.textContent = "Gallerie photo";
+
+            galleryModal.style.display = "flex";
+            deleteGallery.style.display = "block";
+            addPicture.style.display = "block";
+            formAddPicture.style.display = "none";
+            backGallery.style.display = "none";
+            barModal.style.display = "block";
+
+            getApi().then((data) => {
+              galleryModal.innerHTML = "";
+              getGalleryModalItems(data);
+            });
+          };
+
+          modalElement(data);
+          galleryModal.innerHTML = "";
+          getGalleryModalItems(data);
+
+          getApi().then(() => {
+            // delete preview img //
+            preview.style.display = "none";
+            preview.src = "";
+            buttonUploadPhoto.style.display = "block";
+            textFormatImg.style.display = "block";
+            previewDeleteBtn.style.display = "none";
+          });
+        });
+        // form reset
+        formAddPicture.reset();
+        submitBtn.setAttribute("disabled", "disabled");
+        submitBtn.classList.remove("active");
+      }, 400);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -167,28 +236,33 @@ getApi().then(() => {
     const titleImg = document.querySelector("#titre").value;
     const categoryImg = document.querySelector("#categorie").value;
 
-    const formData = new FormData(formAddImg);
+    const formData = new FormData();
 
-    formData.append("image", fileImg, fileImg.type);
+    formData.append("image", fileImg);
     formData.append("title", titleImg);
     formData.append("category", categoryImg);
 
-    // const data = {
-    //   image: fileImg,
-    //   title: titleImg,
-    //   category: categoryImg,
-    // };
+    const isFormValid = titreInput.value !== "" && fileInput.value !== "";
+    const errorTitle = document.querySelector(".bordertitle-error");
+    const errorTitleText = document.querySelector(".error-title-form");
 
-    // const jsonData = JSON.stringify(data);
+    if (!isFormValid) {
+      e.preventDefault();
 
-    console.log(fileImg);
-
-    const res = Object.fromEntries(formData);
-    const payLoad = JSON.stringify(res);
-
-    console.log(payLoad);
-
-    getPostItemApi(payLoad);
+      errorTitleText.classList.add("active");
+      errorTitle.classList.add("active");
+    } else {
+      getPostItemApi(formData).then(() => {
+        getApi().then((data) => {
+          errorTitleText.classList.remove("active");
+          errorTitle.classList.remove("active");
+          const galleryModal = document.querySelector("#js-gallery-modal");
+          renderGallery(data);
+          modalContainer.classList.remove("active");
+          galleryModal.innerHTML = getGalleryModalItems(data);
+        });
+      });
+    }
   });
 });
 
@@ -226,6 +300,8 @@ previewDeleteBtn.addEventListener("click", (e) => {
   textFormatImg.style.display = "block";
   previewDeleteBtn.style.display = "none";
   previewDeleteBtn.style.display = "none";
+  submitBtn.setAttribute("disabled", "disabled");
+  submitBtn.classList.remove("active");
 });
 
 fileInput.addEventListener("change", previewImage);
@@ -250,10 +326,7 @@ const submitBtn = document.querySelector(".confirm-button-form-add");
 submitBtn.disabled = true;
 
 formImg.addEventListener("input", () => {
-  const isFormValid =
-    titreInput.value !== "" &&
-    categorieSelect.value !== "" &&
-    fileInput.value !== "";
+  const isFormValid = fileInput.value !== "";
 
   if (isFormValid) {
     submitBtn.removeAttribute("disabled");
@@ -264,4 +337,22 @@ formImg.addEventListener("input", () => {
   }
 });
 
-//form add picture
+// delete galery
+
+const btnDeleteGallery = document.querySelector("#js-delete-gallery");
+
+btnDeleteGallery.addEventListener("click", () => {
+  getApi()
+    .then((data) => {
+      data.forEach((element) => {
+        getDeleteItemApi(element.id);
+      });
+    })
+    .then(() => {
+      getApi().then((data) => {
+        galleryModal.innerHTML = "";
+        getGalleryModalItems(data);
+        renderGallery(data);
+      });
+    });
+});
