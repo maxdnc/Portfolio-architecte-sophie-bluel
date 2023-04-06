@@ -787,11 +787,11 @@ footer nav ul {
 
 /* erreur titre */
 .error-title-form {
-  visibility: hidden;
+  display: none;
 }
 
 .error-title-form.active {
-  visibility: visible;
+  display: block;
   color: #d65353;
   font-size: 1rem;
   font-family: "Work Sans";

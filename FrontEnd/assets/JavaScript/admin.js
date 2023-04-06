@@ -8,6 +8,9 @@ const barModal = document.querySelector("#js-bar-modal");
 
 const token = localStorage.getItem("token");
 
+const errorTitle = document.querySelector(".bordertitle-error");
+const errorTitleText = document.querySelector(".error-title-form");
+
 // creation de la galery de la modal //
 
 const getGalleryModalItems = (data) => {
@@ -260,8 +263,6 @@ getApi().then(() => {
 
     // form validation //
     const isFormValid = titreInput.value !== "" && fileInput.value !== "";
-    const errorTitle = document.querySelector(".bordertitle-error");
-    const errorTitleText = document.querySelector(".error-title-form");
 
     if (!isFormValid) {
       e.preventDefault();
@@ -321,6 +322,9 @@ previewDeleteBtn.addEventListener("click", (e) => {
   previewDeleteBtn.style.display = "none";
   submitBtn.setAttribute("disabled", "disabled");
   submitBtn.classList.remove("active");
+  formAddPicture.reset();
+  errorTitle.classList.remove("active");
+  errorTitleText.classList.remove("active");
 });
 
 fileInput.addEventListener("change", previewImage); // add image to display image in preview mode //
