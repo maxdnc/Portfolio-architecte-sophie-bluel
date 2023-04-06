@@ -1,3 +1,5 @@
+// ******************************* CALL GET API ALL WORKS ******************************* //
+
 const getApi = async () => {
   try {
     const response = await fetch("http://localhost:5678/api/works");
@@ -7,6 +9,8 @@ const getApi = async () => {
     console.log(error);
   }
 };
+
+// ******************************* CALL GET API CATEGORIES ******************************* //
 
 const getCategoriesApi = async () => {
   try {

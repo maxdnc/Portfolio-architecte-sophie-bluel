@@ -16,12 +16,7 @@
   <body>
     <div class="modal-container">
       <div class="overlay modal-trigger"></div>
-      <div
-        class="modal"
-        role="dialog"
-        aria-labelledby="modal-title"
-        aria-hidden="true"
-      >
+      <div class="modal" role="dialog" aria-hidden="true">
         <button class="close-modal modal-trigger" aria-label="close modal">
           X
         </button>
@@ -63,14 +58,13 @@
               />
             </svg>
 
-            <label for="photo" hidden>Photo :</label>
+            <label for="file-input" hidden>Photo :</label>
             <input
               type="file"
               id="file-input"
               style="display: none"
               accept="image/png, image/jpeg"
               name="image"
-              maxFileSize="4MB"
             />
             <button
               type="button"
@@ -107,7 +101,13 @@
 
           <label for="categorie">Catégorie</label>
           <select name="category" id="categorie" class="title-form-add-photo">
-            <option value="" disabled selected></option>
+            <option
+              id="empty-option"
+              value=""
+              disabled
+              selected
+              label="empty"
+            ></option>
           </select>
           <p class="error-title-form">Erreur: Titre obligatoire !</p>
           <div class="second-bar-modal"></div>
@@ -129,13 +129,12 @@
 
     <div class="edit-mode" id="js-edit-mode">
       <svg
-        class="icon-pencil"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
         stroke="currentColor"
-        class="w-6 h-6"
+        class="w-6 h-6 icon-pencil"
       >
         <path
           stroke-linecap="round"

@@ -94,6 +94,7 @@ const loginButtonUpdate = () => {
 };
 
 // update UI if admin mode activated //
+
 const updateUI = () => {
   const filter = document.querySelector("#js-filter-box");
   const editBar = document.querySelector("#js-edit-mode");
@@ -165,6 +166,7 @@ getApi().then(() => {
 });
 
 // delete api //
+// ******************************* CALL API DELETE ITEM ******************************* //
 const getDeleteItemApi = async (id) => {
   try {
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -179,7 +181,7 @@ const getDeleteItemApi = async (id) => {
 };
 
 //form add picture //
-
+// ******************************* CALL API POST NEW ITEM ******************************* //
 const getPostItemApi = async (formData) => {
   try {
     const response = await fetch("http://localhost:5678/api/works", {
