@@ -490,14 +490,15 @@ footer nav ul {
   align-items: center;
   gap: 1.4375rem;
   width: 80%;
-  max-height: 731px;
-  max-width: 635px;
+  height: 70%;
+  max-height: 670px;
+  max-width: 640px;
   padding: 3.125rem 0;
   min-width: 310px;
   background-color: white;
   border-radius: 0.5rem;
   position: absolute;
-  top: 40%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, calc(-50% - 50px));
   opacity: 0;
@@ -632,6 +633,9 @@ footer nav ul {
 }
 
 /* form add image  */
+.empty-option {
+  color: white;
+}
 
 .form-add-img {
   display: none;
@@ -652,7 +656,7 @@ footer nav ul {
   height: 1px;
   width: 100%;
   background: #b3b3b3;
-  margin-block: 2.25rem;
+  margin-block: 5%;
 }
 .back-to-gallery {
   display: none;

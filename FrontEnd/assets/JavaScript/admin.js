@@ -11,6 +11,20 @@ const token = localStorage.getItem("token");
 const errorTitle = document.querySelector(".bordertitle-error");
 const errorTitleText = document.querySelector(".error-title-form");
 
+const modalContainer = document.querySelector(".modal-container");
+const modalTriggers = document.querySelectorAll(".modal-trigger");
+
+const preview = document.getElementById("preview");
+const buttonUploadPhoto = document.querySelector(".button-upload-photo");
+const textFormatImg = document.querySelector("#text-format-img");
+const previewDeleteBtn = document.querySelector("#js-delete-preview");
+
+const fileInput = document.querySelector("#file-input");
+const titreInput = document.getElementById("titre");
+const categorieSelect = document.getElementById("categorie");
+
+const submitBtn = document.querySelector(".confirm-button-form-add");
+
 // creation de la galery de la modal //
 
 const getGalleryModalItems = (data) => {
@@ -40,7 +54,6 @@ const getGalleryModalItems = (data) => {
     modalDeleteImg.src = "./assets/icons/trash.svg";
     modalDeleteImg.alt = "delete";
     modalDeleteBtn.appendChild(modalDeleteImg);
-
     // button delete item + update modal and gallery //
 
     modalDeleteBtn.addEventListener("click", () => {
@@ -118,19 +131,12 @@ const updateUI = () => {
   }
 };
 
-const updateHomepage = () => {
+window.addEventListener("load", () => {
   loginButtonUpdate();
   updateUI();
-};
-
-window.addEventListener("load", () => {
-  updateHomepage();
 });
 
 //modal gallery //
-
-const modalContainer = document.querySelector(".modal-container");
-const modalTriggers = document.querySelectorAll(".modal-trigger");
 
 // apears/disapear modal //
 
@@ -198,39 +204,30 @@ const getPostItemApi = async (formData) => {
     const data = await response.json();
 
     if (response.status === 201) {
-      // if status 201 then update modal gallery otherwise it was add photo section//
-      setTimeout(() => {
-        // add small delay to update modal gallery otherwise transition is not smooth //
+      // if status 201 then update modal gallery otherwise it was the add photo section//
+      getApi().then(() => {
         getApi().then((data) => {
-          const modalElement = (data) => {
-            modalTitle.textContent = "Gallerie photo";
-
-            galleryModal.style.display = "flex";
-            deleteGallery.style.display = "block";
-            addPicture.style.display = "block";
-            formAddPicture.style.display = "none";
-            backGallery.style.display = "none";
-            barModal.style.display = "block";
-
-            getApi().then((data) => {
-              galleryModal.innerHTML = "";
-              getGalleryModalItems(data);
-            });
-          };
-
-          modalElement(data);
           galleryModal.innerHTML = "";
           getGalleryModalItems(data);
-
-          getApi().then(() => {
-            // delete preview img //
-            preview.style.display = "none";
-            preview.src = "";
-            buttonUploadPhoto.style.display = "block";
-            textFormatImg.style.display = "block";
-            previewDeleteBtn.style.display = "none";
-          });
         });
+      });
+      // add small delay to update modal gallery otherwise transition is not smooth //
+      setTimeout(() => {
+        // update modal gallery //
+        modalTitle.textContent = "Gallerie photo";
+        galleryModal.style.display = "flex";
+        deleteGallery.style.display = "block";
+        addPicture.style.display = "block";
+        formAddPicture.style.display = "none";
+        backGallery.style.display = "none";
+        barModal.style.display = "block";
+
+        // delete preview img //
+        preview.style.display = "none";
+        preview.src = "";
+        buttonUploadPhoto.style.display = "block";
+        textFormatImg.style.display = "block";
+        previewDeleteBtn.style.display = "none";
         // form reset empty //
         formAddPicture.reset();
         submitBtn.setAttribute("disabled", "disabled");
@@ -244,54 +241,47 @@ const getPostItemApi = async (formData) => {
 
 //form add picture
 
-getApi().then(() => {
-  const formAddImg = document.querySelector("#js-form-add-img");
+// getApi().then((data) => {
+formAddPicture.addEventListener("submit", (e) => {
+  const fileImg = fileInput.files[0];
+  const titleImg = titreInput.value;
+  const categoryImg = categorieSelect.value;
 
-  formAddImg.addEventListener("submit", (e) => {
-    e.preventDefault(); // prevent default action of form  like refresh //
+  e.preventDefault();
 
-    const fileImg = document.querySelector("#file-input").files[0];
-    const titleImg = document.querySelector("#titre").value;
-    const categoryImg = document.querySelector("#categorie").value;
+  // form data to send to api //
+  const formData = new FormData();
 
-    // form data to send to api //
-    const formData = new FormData();
+  formData.append("image", fileImg);
+  formData.append("title", titleImg);
+  formData.append("category", categoryImg);
 
-    formData.append("image", fileImg);
-    formData.append("title", titleImg);
-    formData.append("category", categoryImg);
+  // form validation //
+  const isFormValid = titreInput.value !== "" && fileInput.value !== "";
 
-    // form validation //
-    const isFormValid = titreInput.value !== "" && fileInput.value !== "";
+  if (!isFormValid) {
+    // add class active to error message if form empty //
+    errorTitleText.classList.add("active");
+    errorTitle.classList.add("active");
+  } else {
+    // if form is valid then send data to api and update modal //
 
-    if (!isFormValid) {
-      e.preventDefault();
-      // add class active to error message if form empty //
+    getPostItemApi(formData).then(() => {
+      getApi().then((data) => {
+        errorTitleText.classList.remove("active");
+        errorTitle.classList.remove("active");
+        renderGallery(data);
+        modalContainer.classList.remove("active");
 
-      errorTitleText.classList.add("active");
-      errorTitle.classList.add("active");
-    } else {
-      // if form is valid then send data to api and update modal //
-      getPostItemApi(formData).then(() => {
-        getApi().then((data) => {
-          errorTitleText.classList.remove("active");
-          errorTitle.classList.remove("active");
-          const galleryModal = document.querySelector("#js-gallery-modal");
-          renderGallery(data);
-          modalContainer.classList.remove("active");
-          galleryModal.innerHTML = getGalleryModalItems(data);
-        });
+        galleryModal.innerHTML = "";
+        galleryModal.innerHTML = getGalleryModalItems(data);
       });
-    }
-  });
+    });
+  }
 });
+// });
 
 // Function pour preview image
-
-const preview = document.getElementById("preview");
-const buttonUploadPhoto = document.querySelector(".button-upload-photo");
-const textFormatImg = document.querySelector("#text-format-img");
-const previewDeleteBtn = document.querySelector("#js-delete-preview");
 
 function previewImage(event) {
   const file = event.target.files[0];
@@ -309,8 +299,6 @@ function previewImage(event) {
     previewDeleteBtn.style.display = "none";
   }
 }
-
-const fileInput = document.querySelector("#file-input");
 
 previewDeleteBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -340,15 +328,11 @@ getCategoriesApi().then((data) => {
   }
 });
 
-const formImg = document.getElementById("js-form-add-img");
-const titreInput = document.getElementById("titre");
-const categorieSelect = document.getElementById("categorie");
-const submitBtn = document.querySelector(".confirm-button-form-add");
-
-submitBtn.disabled = true;
 // disable button if form is empty //
-formImg.addEventListener("input", () => {
-  const isFormValid = fileInput.value !== "";
+submitBtn.disabled = true;
+
+formAddPicture.addEventListener("input", () => {
+  const isFormValid = fileInput.value !== "" && categorieSelect.value !== "";
 
   if (isFormValid) {
     submitBtn.removeAttribute("disabled");
@@ -361,9 +345,7 @@ formImg.addEventListener("input", () => {
 
 // delete all galery and update api and gallery modal and gallery projet //
 
-const btnDeleteGallery = document.querySelector("#js-delete-gallery");
-
-btnDeleteGallery.addEventListener("click", () => {
+deleteGallery.addEventListener("click", () => {
   getApi()
     .then((data) => {
       data.forEach((element) => {
