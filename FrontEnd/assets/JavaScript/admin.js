@@ -200,7 +200,6 @@ const getPostItemApi = async (formData) => {
       },
       body: formData,
     });
-    const data = await response.json();
 
     if (response.status === 201) {
       // if status 201 then update modal gallery otherwise it was the add photo section//
