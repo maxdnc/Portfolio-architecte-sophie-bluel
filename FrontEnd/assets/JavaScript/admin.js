@@ -58,7 +58,7 @@ const getGalleryModalItems = (data) => {
 
     modalDeleteBtn.addEventListener("click", () => {
       const id = boxModal.getAttribute("data-id");
-      console.log(id);
+
       getDeleteItemApi(id).then(() => {
         getApi().then((data) => {
           renderGallery(data);
@@ -196,7 +196,6 @@ const getPostItemApi = async (formData) => {
     const response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
       headers: {
-        accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: formData,
