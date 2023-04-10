@@ -241,7 +241,6 @@ const getPostItemApi = async (formData) => {
 
 //form add picture
 
-// getApi().then((data) => {
 formAddPicture.addEventListener("submit", (e) => {
   const fileImg = fileInput.files[0];
   const titleImg = titreInput.value;
@@ -279,7 +278,6 @@ formAddPicture.addEventListener("submit", (e) => {
     });
   }
 });
-// });
 
 // Function pour preview image
 
